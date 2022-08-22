@@ -67,365 +67,385 @@ import Title from '../Title'
 const INPUT = 0
 const OUTPUT = 1
 
-const DownArrowBackground = styled.div`
-  ${({ theme }) => theme.flexRowNoWrap}
-  justify-content: center;
-  align-items: center;
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
-  border-radius: 6px;
-  margin: 3px auto;
-  cursor:pointer;
-  background: ${({ theme }) => theme.swapBg}
+
+const DownArrowBackground = styled.div`   
+      ${({ theme }) => theme.flexRowNoWrap}  
+      justify-content: center;   
+      align-items: center;   
+      width: 32px;  
+      height: 32px;  
+      object-fit: contain;  
+      border-radius: 6px;   
+      margin: 3px auto;  
+      cursor:pointer;   
+      background: ${({ theme }) => theme.swapBg}    
+`  
+
+const Flex = styled.div`   
+      display: flex;  
+      justify-content: center;   
+      padding: 2rem;   
+
+      button {  
+            max-width: 20rem;  
+      }
 `
 
-const Flex = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: 2rem;
-
-  button {
-    max-width: 20rem;
-  }
-`
-const InputPanel = styled.div`
-${({ theme }) => theme.flexColumnNoWrap}
-box-shadow: 0 0.25rem 8px 0 ${({ theme }) => transparentize(0.95, theme.shadowColor)};
-background: ${({theme}) => theme.contentBg};
-position: relative;
-border-radius: 1.25rem;
-z-index: 1;
-padding: 1.5625rem 2.5rem;
-margin-top: 0.625rem;
-@media screen and (max-width: 960px) {
-  padding: 1rem 1.5625rem;
+const InputPanel = styled.div`   
+${({ theme }) => theme.flexColumnNoWrap}   
+box-shadow: 0 0.25rem 8px 0 ${({ theme }) => transparentize(0.95, theme.shadowColor)};   
+background: ${({theme}) => theme.contentBg};   
+position: relative;   
+border-radius: 1.25rem;   
+z-index: 1;   
+padding: 1.5625rem 2.5rem;   
+margin-top: 0.625rem;  
+@media screen and (max-width: 960px) {  
+      padding: 1rem 1.5625rem;   
 }
 `
 
-const ContainerRow = styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
-`
+const ContainerRow = styled.div`  
+dispaly: flex;  
+justify-content: center;  
+`   
 
-const InputContainer = styled.div`
-flex: 1;
-`
+const InputContainer = styled.div`   
+flex: 1;   
+`  
 
-const LabelRow = styled.div`
-${({ theme }) => theme.flexRowNoWrap}
-align-items: center;
-color: ${({ theme }) => theme.doveGray};
-font-size: 0.75rem;
-font-family: 'Manrope';
-line-height: 1rem;
-padding: 0.75rem 0;
-`
+const LabelRow = styled.div`  
+${({ theme }) => theme.flexRowNoWrap}   
+align-items: center;  
+color: ${({ theme }) => theme.doveGray};   
+font-size: 0.75rem;   
+font-family: 'Manrope';   
+line-heiight: 1rem;  
+padding: 0.75rem 0;     
+`  
 
 const LabelContainer = styled.div`
 flex: 1 1 auto;
-width: 0;
-overflow: hidden;
-white-space: nowrap;
-text-overflow: ellipsis;
-`
+width: 0;  
+overflow: hidden;  
+white-space: nowrap;   
+text-overflow: ellipsis;   
+`  
 
-const InputRow = styled.div`
-${({ theme }) => theme.flexRowNoWrap}
-align-items: center;
-padding: 0.25rem 0rem 0.75rem;
-`
+const InputRow = styled.div` 
+${({ theme }) => theme.flexRowNoWrap}   
+align-items: center;  
+padding: 0.25rem 0rem 0.75rem;   
+`   
 
-const Input = styled.input`
-outline: none;
-border: none;
-flex: 1 1 auto;
-width: 0;
-background-color: transparent;
-border-bottom: 0.0625rem solid ${({theme}) => theme.inputBorder};
-
-color: ${({ error, theme }) => (error ? theme.salmonRed : theme.textColorBold)};
-overflow: hidden;
-text-overflow: ellipsis;
-font-family: 'Manrope';
-font-size: 24px;
-font-weight: 500;
-font-stretch: normal;
-font-style: normal;
-line-height: 1;
-letter-spacing: -0.0625rem;
-padding: 8px 0.75rem;
-::placeholder {
-  color: ${({ theme }) => theme.placeholderGray};
+const Input = styled.input`   
+outline: none;   
+border: none;   
+flex: 1 1 auto;   
+width: 0;  
+background-color: transparent;    
+border-bottom: 0.0625rem solid ${({theme}) => theme.inputBorder};   
+color: ${({ error, theme }) => (error  ? theme.salmonRed : theme.textColorBold)};   
+overflow: hidden;   
+text-overflow: ellipsis;   
+font-family: 'Manrope';   
+font-size: 24px;  
+font-weight: 500;   
+font-stretch: normal;  
+font-style: normal;  
+line-height: 1;  
+letter-spacing: -0.0625rem;  
+padding: 8px 0.75rem;  
+::placeholder {   
+      color: ${({ theme }) => theme.placeholderGray};   
 }
 `
+const MintDiv = styled.div`   
+      width: 100%;   
+      padding: 1.25rem 1rem;  
+`  
 
-const MintDiv = styled.div`
-  width: 100%;
-  padding: 1.25rem 1rem;
-`
+const MintList = styled.div`   
+      border-bottom: 0.0625rem solid ${({ error, theme }) => (error ? theme.salmonRed : theme.mercuryGray)};     
+      padding: 8px 8px;   
+      font-family: 'Manrope';   
+      font-size: 0.875rem;    
+`   
 
-const MintList = styled.div`
-  border-bottom: 0.0625rem  solid ${({ error, theme }) => (error ? theme.salmonRed : theme.mercuryGray)};
-  padding: 8px 8px;
-  font-family: 'Manrope';
-  font-size: 0.875rem;
-`
-const MintListCenter = styled(MintList)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 1.875rem;
-`
-
-const MintListLabel = styled.div`
-  width: 100%;
-  font-size:12px;
-  color:#96989e;
+const MintListCenter = styled(MintList)`   
+      display: flex;   
+      justify-content: center;  
+      align-items: center;  
+      margin-bottom: 1.875rem;  
 `
 
-const MintListVal = styled.div`
-${({ theme }) => theme.FlexSC};
-  width: 100%;
-  cursor:pointer
-  color:${({ theme }) => theme.textColorBold};
-  font-size:12px;
-  .green {
-    color: green
-  }
-  .red {
-    color: red
-  }
-  .link {
-    color:${({ theme }) => theme.textColorBold};
-  }
+const MintListLabel = styled.div`   
+      width: 100%;  
+      font-size:12px;   
+      color:#96989e;
 `
 
-const TokenLogoBox = styled(TokenLogo)`
-  // padding: 0.625rem;
-  background: none;
-`
+const MintListVal = styled.div`   
+      ${({ theme }) => theme.FlexSC};    
+            width: 100%;  
+            cursor:pointer  
+            color:${({ theme }) => theme.textColorBold};    
+            font-size:12px;  
+            .green {  
+                  color: green
+            }  
+            .red {  
+                  color: red  
+            }  
+            .link {  
+                  color:${({ theme }) => theme.textColorBold};  
+            }   
+`   
+
+const TokenLogoBox = styled(TokenLogo)`    
+      // padding: 0.625rem;  
+      background: none;  
+`  
 
 const MintTip = styled.div`
-  position: fixed;
-  top: 100px;
-  right: 80px;
-  border-radius: 0.25rem;
-  box-shadow:0 0 5px 0px #E1902E;
-  z-index: 99;
-  cursor:pointer;
-  .txt {
-    width: 0;height: 100%;white-space: nowrap;overflow: hidden;transition: width 0.5s;
-  }
-  &:hover {
-    .txt {
-      width: 150px;padding: 0 1.25rem;
-    }
-  }
-`
-
-const MintHahshList = styled.div`
-  position:fixed;
-  top:100px;
-  right:20px;
-  z-index: 99;
-  cursor:pointer;
-  margin:0;
-  ul {
-    list-style:none;
-    cursor:pointer;
-    margin:0;
-    padding:15px;
-    max-height: 200px;
-    overflow:auto;
-    li {
-      border-radius: 0.25rem;
-      box-shadow:0 0 5px 0px #E1902E;
-      margin:0 0 20px;
-      padding: 5px;
-      position:relative;
-      img {
-        display:block;
+      position: fixed;    
+      top: 100px;  
+      right: 80px;   
+      border-radius: 0.25rem;  
+      box-shadow:0 0 5px 0px  #E1902E;    
+      z-index: 99;  
+      cursor:pointer;   
+      .txt {  
+            width: 0;height: 100%;white-space: nowrap;overflow: hidden;transition: width 0.5s;    
+      }   
+      &:hover {  
+            .txt {   
+                  width: 150px;padding: 0 1.25rem;  
+            }
       }
-      .txt {
-        width: 0;height: 100%;white-space: nowrap;overflow: hidden;transition: width 0.5s;
+`  
+const MintHashList = styled.div`      
+      position:fixed;  
+      top:100px;  
+      right:20px;  
+      z-index: 99;  
+      cursor:pointer;   
+      margin:0;   
+      ul {   
+            list-style:none;  
+            cursor:pointer;   
+            margin:0;  
+            padding:15px;   
+            max-height: 200px;  
+            overflow:auto;   
+            li {   
+                  border-radius: 0.25rem;    
+                  box-shadow: 0 0 5px 0px #E1902E;
+                  margin:0 0 20px;   
+                  padding: 5px;   
+                  position:relative;  
+                  img {  
+                        display:block;   
+                  }
+                  .txt {  
+                        width: 0;height: 100%;white-space: nowrap;overflow: hidden;transition: width 0.5s;  
+                  }
+                  .del {  
+                        ${({ theme }) => theme.FlexC};   
+                        position:absolute;  
+                        top:-9px;  
+                        right:-9px;  
+                        width:18px;  
+                        height:18px;  
+                        border:1px solid #ddd;      
+                        border-radius:100%;   
+                        background: rgba(0,0,0,.1);  
+                        line-height:1;  
+                        font-size:12px;   
+                        color:#fff;   
+                        opacity: 0;  
+                  }
+                  &:hover {  
+                        .txt { 
+                              width: 150px;padding: 0 1.25rem;  
+                        }
+                        .del {
+                              opacity: 1;   
+                        }
+                  }
+            }
       }
-      .del {
-        ${({ theme }) => theme.FlexC};
-        position:absolute;
-        top: -9px;
-        right:-9px;
-        width: 18px;
-        height: 18px;
-        border:1px solid #ddd;
-        border-radius:100%;
-        background: rgba(0,0,0,.1);
-        line-height:1;
-        font-size:12px;
-        color:#fff;
-        opacity: 0;
+}
+.delete {
+      ${({ theme }) => theme.FlexC};    
+      width:100%;  
+      background: rgba(0,0,0,.1);   
       }
-      &:hover {
-        .txt {
-          width: 150px;padding: 0 1.25rem;
-        }
-        .del {
-          opacity: 1;
-        }
+`
+
+const FlexCenter = styled.div`    
+      display: flex; 
+      justify-contene: center;    
+      align-items: center;  
+      button {  
+            max-width: 20rem;  
       }
-    }
-  }
-  .delete {
-    ${({ theme }) => theme.FlexC};
-    width:100%;
-    background: rgba(0,0,0,.1);
-  }
 `
 
-const FlexCneter = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  button {
-    max-width: 20rem;
-  }
-`
+const StyledQRcode = styled(QRcode)`   
+      width: ${({ size }) => size};
+      height: ${({ size }) => size};
+      cursor:pointer;
+      margin-left: 0.625rem;
+`  
 
-const StyledQRcode = styled(QRcode)`
-  width: ${({ size }) => size};
-  height: ${({ size }) => size};
-  cursor:pointer;
-  margin-left: 0.625rem;
-`
+const MintWarningTip = styled.div`   
+${({ theme }) => theme.FlexSC};  
+      padding: 0.0625rem 1rem;  
+      width: 100%;  
+      // color:red; 
 
-const MintWarningTip = styled.div`
-${({ theme }) => theme.FlexSC};
-  padding: 0.625rem 1rem;
-  width: 100%;
-  // color:red;
-  
-  color: ${({ theme }) => theme.tipColor};
-  font-family: 'Manrope';
-  cursor: pointer;
-  flex: 1 0 auto;
-  align-items: center;
-  position: relative;
-  padding: 0.5rem 1rem;
-  padding-right: 2rem;
-  // margin-bottom: 1rem;
-  // border: 0.0625rem solid ${({ theme }) => transparentize(0.6, 'red')};
-  // background-color: ${({ theme }) => transparentize(0.9, 'red')};
-  
-  border: solid 0.5px ${({ theme }) => theme.tipBorder};
-  background-color: ${({ theme }) => theme.tipBg};
-  border-radius: 1rem;
-  font-size: 0.75rem;
-  line-height: 1rem;
-  text-align: left;
-  margin-top: 10px;
-  
-  flex-wrap:wrap;
-  line-height: 1rem;
-  .span {
-    text-decoration: underline;
-    margin: 0 5px;
-  }
-  a {
-    display:inline-block;
-    overflow:hidden;
-    height: 1rem;
-  }
-`
+      color: ${({ theme }) => theme.tipColor};   
+      font-family: 'Manrope';  
+      cursor: pointer;  
+      flex: 1 0 auto;   
+      align-items: center;  
+      position: relative;  
+      padding: 0.5rem 1rem;   
+      // margin-bottom: 1rem;   
+      // border: 0.0625rem solid ${({ theme }) => transparentize(0.6, 'red')};   
+      // background-color: ${({ theme }) => transparentize(0.9, 'red')};    
 
-// const StyledCopyICON = styled(copyICON)`
-//   width: ${({ size }) => size};
-//   height: ${({ size }) => size};
-//   margin: 0 0.625rem;
-//   cursor:pointer;
-// `
+      border: solid 0.5px ${({ theme }) => theme.tipBorder};   
+      background-color: ${({ theme }) => theme.tipBg};   
+      border-radius: 1rem;   
+      font-size: 0.75rem;   
+      line-height: 1rem;  
+      text-align: left;  
+      margin-top: 10px;   
 
-const StyledBirdgeIcon = styled.div`
-  ${({ theme }) => theme.FlexC};
-  img {
-    margin-right: 1rem
-  }
-`
-
-const SubCurrencySelectBox = styled.div`
-  width: 100%;
-  object-fit: contain;
-  border-radius: 0.5625rem;
-  border: solid 0.5px ${({ theme }) => theme.tipBorder};
-  background-color: ${({ theme }) => theme.tipBg};
-  padding: 1rem 1.25rem;
-  margin-top: 0.625rem;
-
-  .tip {
-    ${({ theme }) => theme.FlexSC};
-    font-size: 12px;
-    font-weight: 500;
-    color: ${({ theme }) => theme.tipColor};
-    padding: 2px 20px 18px;
-    border-bottom: 1px solid #f1f6fa;
-    word-break:break-all;
-    img {
-      display:inlne-block;
-    }
-    p {
-      ${({ theme }) => theme.FlexSC};
-      flex-wrap:wrap;
-      display:inline-block;
-      margin: 0;
-      line-height: 1rem;
-      .span {
-        text-decoration: underline;
-        margin: 0 5px;
-      }
+      flex-wrap:wrap;  
+      line-height: 1rem;  
+      .span {  
+            text-decoration: underline;   
+            margin: 0 5px;   
+      }  
       a {
-        display:inline-block;
-        overflow:hidden;
-        height: 1rem;
+            display:inline-block;  
+            overflow:hidden;   
+            height: 1rem; 
+      }  
+` 
+
+const StyleBirdgeIcon = styled.div`
+      ${({ theme }) => theme.FlexC};   
+      img {   
+            margin-right: 1rem    
+      }        
+`   
+
+const SubCurrencySelectBox = styled.div`   
+      width: 100%;  
+      object-fit: contain;  
+      border-radius: 0.5625rem;  
+      border: solid 0.5px ${({ theme }) => theme.tipBorder};   
+      background-color: ${({ theme }) => theme.tipBorder};   
+      padding: 1rem 1.25rem;  
+      margin-top: 0.625rem;   
+
+      .tip {
+            ${({ theme }) => theme.FlexSC};   
+            font-size: 12px;     
+            font-weight: 500;  
+            color: ${({ theme }) => theme.tipColor};  
+            padding: 2px 20px 18px;   
+            border-bottom: 1px soloid #f1f6fa;   
+            word-break:break-all;  
+            img {
+                  display:inlne-block;   
+            }   
+            p {
+                  ${({ theme }) => theme.FlexSC};    
+                  flex-wrap:wrap;  
+                  display:inline-block;  
+                  margin:0;   
+                  line-height: 1rem;  
+                  .spn {  
+                        text-decoration: underline;   
+                        margin: 0 5px;  
+                  }
+                  a {
+                        display:inline-block;  
+                        overflow:hidden;  
+                        height: 1rem;   
+                  }
+            }
       }
-    }
-  }
-  .list {
-    margin:0;
-    padding: 0 0px 0;
-    font-size: 12px;
-    color: ${({ theme }) => theme.tipColor};
-    dt {
-      ${({ theme }) => theme.FlexSC};
-      font-weight: bold;
-      line-height: 1.5;
-      img {
-        margin-right: 8px;
+      .list {
+            margin:0;  
+            padding: 0 0px 0;  
+            font-size: 12px;   
+            color: ${({ theme }) => theme.tipColor};    
+            dt {
+                  ${({ theme }) => theme.FlexSC};   
+                  foont-weight: bold;  
+                  line-height: 1.5;  
+                  img { 
+                        margin-right: 8px;  
+                  }
+            }
+            dd {
+                  font-weight: 500;  
+                  line-height: 1.83;   
+                  i{
+                        display:inline-block;   
+                        width:4px;    
+                        height:4px;  
+                        border-radius:100%;   
+                        background:${({ theme }) => theme.topColor};  
+                        margin-right: 10px;     
+                  }
+            }
       }
-    }
-    dd {
-      font-weight: 500;
-      line-height: 1.83;
-      i{
-        display:inline-block;
-        width:4px;
-        height: 4px;
-        border-radius:100%;
-        background:${({ theme }) => theme.tipColor};
-        margin-right: 10px;
-      }
-    }
-  }
 `
-const TokenLogoBox1 = styled.div`
-  ${({ theme }) => theme.FlexC};
-  width: 46px;
-  height: 46px;
-  background: ${ ({theme}) => theme.white};
-  box-sizing:border-box;
-  border-radius: 100%;
-  margin-top: 15px;
-  border:1px solid #ddd;
+
+const TokenLogoBox1 = styled.div`    
+      ${({ theme }) => theme.FlexC};   
+      width: 46px;   
+      height: 46px;   
+      background: ${({ theme }) => theme.white};   
+      box-sizing:border-box;   
+      border-radius: 100%;  
+      margin-top: 15px;  
+      border:1px solid #ddd;    
+`   
+
+const DepositValue = styled.div`
+      width:100%;   
+      text-align: center;   
+      p {   
+            front-size:12px;   
+            color:#96989e;     
+            margin: 8px 0 8px;  
+      }   
+      span {   
+            color:${({ theme }) => theme.textColorBold};   
+            font-size:22px;   
+      }  
+`  
+
+const HashStatus = styled.div`    
+      ${({ theme }) => theme.FlexBC};   
+      width:100%;   
+      font-size:12px;
+      /// hash-status ///    
+      margin-top: 15px;  
+      border: 1px solid #7ec5;  
+      
 `
+
+
+// -------------------------------------------------------------------------------------------------------------------------------
 
 const DepositValue = styled.div`
 width:100%;
